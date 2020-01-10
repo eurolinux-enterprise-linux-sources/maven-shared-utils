@@ -1,6 +1,6 @@
 Name:           maven-shared-utils
 Version:        0.4
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        Maven shared utility classes
 License:        ASL 2.0
 URL:            http://maven.apache.org/shared/maven-shared-utils
@@ -48,6 +48,9 @@ API documentation for %{name}.
 %doc LICENSE NOTICE
 
 %changelog
+* Fri Dec 27 2013 Daniel Mach <dmach@redhat.com> - 0.4-3
+- Mass rebuild 2013-12-27
+
 * Fri Jun 28 2013 Mikolaj Izdebski <mizdebsk@redhat.com> - 0.4-2
 - Rebuild to regenerate API documentation
 - Resolves: CVE-2013-1571
