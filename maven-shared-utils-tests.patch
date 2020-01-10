@@ -1,0 +1,94 @@
+diff --git a/pom.xml b/pom.xml
+index e12f7e6..bb0745f 100644
+--- a/pom.xml
++++ b/pom.xml
+@@ -56,7 +56,7 @@
+     <dependency>
+       <groupId>junit</groupId>
+       <artifactId>junit</artifactId>
+-      <version>4.9</version>
++      <version>4.11</version>
+       <scope>test</scope>
+     </dependency>
+     <dependency>
+diff --git a/src/test/java/org/apache/maven/shared/utils/ExpandTest.java b/src/test/java/org/apache/maven/shared/utils/ExpandTest.java
+index 298cb70..b032da9 100644
+--- a/src/test/java/org/apache/maven/shared/utils/ExpandTest.java
++++ b/src/test/java/org/apache/maven/shared/utils/ExpandTest.java
+@@ -73,6 +73,7 @@ public class ExpandTest
+      * @return
+      */
+     private File getTestTargetDir()
++        throws Exception
+     {
+         return tempFolder.newFolder( TEST_ZIP_TARGET_FOLDER );
+     }
+diff --git a/src/test/java/org/apache/maven/shared/utils/reflection/ReflectorTest.java b/src/test/java/org/apache/maven/shared/utils/reflection/ReflectorTest.java
+index 6d8cca3..e9e2ca5 100644
+--- a/src/test/java/org/apache/maven/shared/utils/reflection/ReflectorTest.java
++++ b/src/test/java/org/apache/maven/shared/utils/reflection/ReflectorTest.java
+@@ -25,6 +25,7 @@ import java.lang.reflect.Constructor;
+ 
+ import static org.hamcrest.CoreMatchers.*;
+ import static org.junit.Assert.assertThat;
++import static org.junit.Assert.assertTrue;
+ import static org.junit.Assert.fail;
+ 
+ import static org.apache.maven.shared.utils.testhelpers.ExceptionHelper.*;
+@@ -116,8 +117,8 @@ public class ReflectorTest
+     public void newInstancePublicConstructor()
+         throws Exception
+     {
+-        assertThat( reflector.newInstance( ReflectorTestHelper.class, new Object[]{ "" } ),
+-                    is( ReflectorTestHelper.class ) );
++        assertTrue( reflector.newInstance( ReflectorTestHelper.class, new Object[]{ "" } )
++                    instanceof ReflectorTestHelper );
+     }
+ 
+     @Test( expected = NullPointerException.class )
+@@ -222,8 +223,8 @@ public class ReflectorTest
+     public void getSingletonPublicMethod()
+         throws Exception
+     {
+-        assertThat( reflector.getSingleton( ReflectorTestHelper.class, new Object[]{ "" } ),
+-                    is( ReflectorTestHelper.class ) );
++        assertTrue( reflector.getSingleton( ReflectorTestHelper.class, new Object[]{ "" } )
++                    instanceof ReflectorTestHelper );
+     }
+ 
+     @Test( expected = NullPointerException.class )
+@@ -252,8 +253,8 @@ public class ReflectorTest
+     public void getSingletonNonStaticMethod()
+         throws Exception
+     {
+-        assertThat( reflector.getSingleton( ReflectorTestHelper.class, new Object[]{ "", Boolean.FALSE } ),
+-                    is( ReflectorTestHelper.class ) );
++        assertTrue( reflector.getSingleton( ReflectorTestHelper.class, new Object[]{ "", Boolean.FALSE } )
++                    instanceof ReflectorTestHelper );
+     }
+ 
+     //// invoke( Object, String, Object[] )
+@@ -866,8 +867,8 @@ public class ReflectorTest
+     public void invokeStaticPublicMethod()
+         throws Exception
+     {
+-        assertThat( reflector.invokeStatic( ReflectorTestHelper.class, "getInstance", new Object[]{ "" } ),
+-                    is( ReflectorTestHelper.class ) );
++        assertTrue( reflector.invokeStatic( ReflectorTestHelper.class, "getInstance", new Object[]{ "" } )
++                    instanceof ReflectorTestHelper );
+     }
+ 
+     @Test( expected = NullPointerException.class )
+@@ -896,9 +897,9 @@ public class ReflectorTest
+     public void invokeStaticNonStaticMethod()
+         throws Exception
+     {
+-        assertThat(
+-            reflector.invokeStatic( ReflectorTestHelper.class, "getInstance", new Object[]{ "", Boolean.FALSE } ),
+-            is( ReflectorTestHelper.class ) );
++        assertTrue(
++            reflector.invokeStatic( ReflectorTestHelper.class, "getInstance", new Object[]{ "", Boolean.FALSE } )
++            instanceof ReflectorTestHelper );
+     }
+ 
+     //// getConstructor( Class, Class[] )
